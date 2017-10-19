@@ -13,6 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.web.reactive.function.client.ExchangeFilterFunctions
 
+import org.springframework.web.reactive.function.client.ExchangeFilterFunctions.basicAuthentication
+
 /**
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
  */
@@ -33,21 +35,13 @@ class FfsServiceApplicationTests {
     @Before
     fun setup() {
         val springSecurity = springSecurity()
-        val mss: WebTestClient.MockServerSpec<> = WebTestClient
+        WebTestClient
                 .bindToApplicationContext(this.context!!)
                 .apply(springSecurity!!)
-//                .configureClient()
-//                .filter(basicAuthentication())
-//                .baseUrl("http://localhost:8080/")
-//                .build()
-//
-//        client = WebTestClient
-//                .bindToApplicationContext(context!!)
-//                .apply<WebTestClient.MockServerSpec<*>>(springSecurity())
-//                .configureClient()
-//                .filter(basicAuthentication())
-//                .baseUrl("http://localhost:8080/")
-//                .build()
+                .configureClient()
+                .filter(basicAuthentication())
+                .baseUrl("http://localhost:8080/")
+                .build()
     }
 
     @Test
