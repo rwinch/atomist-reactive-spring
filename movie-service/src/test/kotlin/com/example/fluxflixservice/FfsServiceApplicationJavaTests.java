@@ -19,27 +19,27 @@ import static org.springframework.web.reactive.function.client.ExchangeFilterFun
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FfsServiceApplicationJavaTests {
-	@Autowired
-	ApplicationContext context;
+    @Autowired
+    ApplicationContext context;
 
-	WebTestClient client;
+    WebTestClient client;
 
-	@Before
-	public void setup() {
-		this.client = WebTestClient
-				.bindToApplicationContext(this.context)
+    @Before
+    public void setup() {
+        this.client = WebTestClient
+                .bindToApplicationContext(this.context)
                 .apply(springSecurity())
                 .configureClient()
-				.filter(basicAuthentication())
-				.baseUrl("http://localhost:8080/")
-				.build();
-	}
+                .filter(basicAuthentication())
+                .baseUrl("http://localhost:8080/")
+                .build();
+    }
 
-	@Test
-	public void getMoviesWhenNotAuthenticatedThenIsUnauthorized() {
-		this.client.get()
-				.uri("/movies/")
-				.exchange()
-				.expectStatus().isUnauthorized();
-	}
+    @Test
+    public void getMoviesWhenNotAuthenticatedThenIsUnauthorized() {
+        this.client.get()
+                .uri("/movies/")
+                .exchange()
+                .expectStatus().isUnauthorized();
+    }
 }
