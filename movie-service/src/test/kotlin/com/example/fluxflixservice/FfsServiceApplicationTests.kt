@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 import org.springframework.http.HttpStatus
+import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockUser
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.springSecurity
 import org.springframework.test.context.junit4.SpringRunner
@@ -35,9 +36,10 @@ class FfsServiceApplicationTests {
     @Before
     fun setup() {
         val springSecurity = springSecurity()
-        client = WebTestClient
+        val builder : WebTestClient.MockServerSpec<*> = WebTestClient
                 .bindToApplicationContext(this.context!!)
                 .apply(springSecurity!!)
+        client = builder
                 .configureClient()
                 .filter(basicAuthentication())
                 .baseUrl("http://localhost:8080/")
