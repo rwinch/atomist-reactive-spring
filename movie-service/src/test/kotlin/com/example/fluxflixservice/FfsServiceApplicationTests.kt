@@ -35,7 +35,7 @@ class FfsServiceApplicationTests {
     @Before
     fun setup() {
         val springSecurity = springSecurity()
-        WebTestClient
+        client = WebTestClient
                 .bindToApplicationContext(this.context!!)
                 .apply(springSecurity!!)
                 .configureClient()
