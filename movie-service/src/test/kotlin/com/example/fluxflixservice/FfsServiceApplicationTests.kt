@@ -34,11 +34,9 @@ class FfsServiceApplicationTests {
 
     @Before
     fun setup() {
-        val springSecurity = springSecurity()
-        val builder : WebTestClient.MockServerSpec<*> = WebTestClient
-                .bindToApplicationContext(this.context!!)
-                .apply(springSecurity!!)
-        client = builder
+        val mss: WebTestClient.MockServerSpec<*> =  WebTestClient.bindToApplicationContext(this.context!!)
+                .apply(springSecurity())
+        client = mss
                 .configureClient()
                 .filter(basicAuthentication())
                 .baseUrl("http://localhost:8080/")
