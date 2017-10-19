@@ -7,14 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 import org.springframework.http.HttpStatus
-import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockUser
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.springSecurity
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.reactive.server.WebTestClient
-import org.springframework.web.reactive.function.client.ExchangeFilterFunctions
-
+import org.springframework.web.reactive.function.client.ExchangeFilterFunctions.Credentials.basicAuthenticationCredentials
 import org.springframework.web.reactive.function.client.ExchangeFilterFunctions.basicAuthentication
+
 
 /**
  * @author <a href="mailto:josh@joshlong.com">Josh Long</a>
@@ -29,9 +28,9 @@ class FfsServiceApplicationTests {
 
     private var client: WebTestClient? = null
 
-    private fun robsCredentials() = ExchangeFilterFunctions.Credentials.basicAuthenticationCredentials("rwinch", "password")
+    private fun robsCredentials() = basicAuthenticationCredentials("rwinch", "password")
 
-    private fun joshsCredentials() = ExchangeFilterFunctions.Credentials.basicAuthenticationCredentials("jlong", "password")
+    private fun joshsCredentials() = basicAuthenticationCredentials("jlong", "password")
 
     @Before
     fun setup() {
